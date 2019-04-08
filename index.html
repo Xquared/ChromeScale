@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+
+<head>
+<title>ChromeScale</title>
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+<style>
+body { /* css resets are really css presets...to use instead of the default, though usually just outright clearing the default to start from scratch */
+}
+div{
+text-shadow: 0px 25px 25px grey;
+}
+#chromescale {
+font-family: 'Quicksand', sans-serif;
+/*font-family: 'Raleway', sans-serif;*/
+font-size: 200px;
+text-align: center;
+}
+#r,#g,#b {
+font-family: 'Quicksand', sans-serif;
+font-size: 150px;
+display:inline-block;
+}
+#rgb{
+text-align:center;
+}
+
+</style>
+</head>
+<body>
+
+<div>
+<p id ="chromescale">ChromeScale</p>
+<p id ="rgb"><span id ="r"></span><span id ="g"></span><span id ="b"></span></p>
+
+
+</div>
+<script>
+var a = 0;
+var b = 0;
+var c = 0;
+var aa = 255;
+var bb = 255;
+var cc = 255;
+var x = 0;
+var y = 0;
+var z = 0;
+var v = 0;
+var w = 0;
+
+/*the counter variable checked by functions outside of the scope in which it is
+modified in, it must be set as a return value for said purposes
+Passing the variable into the function as a parameter
+Return to the element that sent the parameters,or called the funtion
+*/
+
+/*the functions were always running,so after attempting to set a to 0, it would still check and register that a was less than 255 and loop there, so I had to use different variables, and thus starting point values for them*/
+
+function red(){if (a<255){a++;return red;} else {green();}} 
+function green(){if (b<255){b++;return green;} else {redx();}} 
+function redx(){if (aa>0){aa--;return redx;}else{blue();}} 
+function blue(){if (c<255){c++;return blue;}else{greenx();}}
+function greenx(){if (bb>0){bb--;return greenx;}else{vio();}}
+function vio(){if ((a == 255 && aa == 0) && (v<255)){v++;return vio}else{white();}}
+function white(){if ((b == 255 && bb == 0) && (w<255)){w++;return white}else{black();}}
+
+/*red should go up before blue goes down for purple and continuous
+otherwisered could go up again as above and then green for white, than all down for black... and then red starts again.
+ */
+/*this is what I wanted to happen every milli second
+the check, and rendering of the incrementing values... which by proxy also did so by the milli second*/
+var checkC = setInterval (check, 1);
+function check (){
+ document.getElementById("chromescale").style.color = "rgb("+x+","+y+","+z+")";
+    document.getElementById("r").innerHTML = "R="+x;
+ document.getElementById("r").style.color = "rgb("+x+",0,0)";
+    document.getElementById("g").innerHTML = ",G="+y;
+ document.getElementById("g").style.color = "rgb(0,"+y+",0)";
+    document.getElementById("b").innerHTML = ",B="+z; 
+ document.getElementById("b").style.color = "rgb(0,0,"+z+")";
+red();
+if (a < aa) {x=a} else {x = aa};
+if (b < bb) {y=b} else {y = bb};
+if (c < cc) {z=c} else {z = cc};
+if (a == 255 && aa == 0) {x = v}
+if (b == 255 && bb == 0) {y = w}
+
+
+
+/*he variables switch values/positions here, so any further formulas
+ with them will prove to be redundant, second cases emulating the 
+ firsts. So using the directly implimented variables xyz */
+/*if (x <
+if a = 0 and aa = 255, etc*/
+}
+
+</script>
+
+</body>
+</html>
